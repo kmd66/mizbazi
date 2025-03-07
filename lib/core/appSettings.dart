@@ -20,6 +20,7 @@ class AppStrings {
   static String webWersion = '';
 
   static String? deviceId;
-  static String? user;
   static String? auth;
+  static dynamic user;
+  static String? userAvatar;
 }

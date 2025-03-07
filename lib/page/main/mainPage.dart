@@ -1,3 +1,5 @@
+import 'package:miz_bazi/page/main/register.dart';
+
 import '../../Widgets/Load.dart';
 import '../../Widgets/Msg.dart';
 import '../../core/appColor.dart';
@@ -37,8 +39,8 @@ class _State extends State<MainPage> {
           StateType.splash =>splashPage(),
           StateType.home =>HomePage(),
           StateType.login => Login(),
+          StateType.register => Register(),
           StateType.reconnect => Reconnect(value.msg),
-          _ =>splashPage()
         };
       });
     });

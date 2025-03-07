@@ -58,8 +58,12 @@ class _State extends State<splashPage> {
       chengStateMain.add(ChengState(StateType.login));
       return;
     }
+    AppStrings.auth = await local.getString('auth');
 
-    AppStrings.auth= await local.getString('auth');
+    if(local.containsKey('userAvatar')){
+      AppStrings.userAvatar = await local.getString('userAvatar');
+    }
+
     await userService.Get();
   }
 

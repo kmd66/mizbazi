@@ -14,10 +14,14 @@ class UserService {
 
   Future Get() async{
     streamLoad.add('');
-    await _http.post(AppStrings.apiHost + urlGet, {}).then((value) {
-        value['userName'] == null?
-        chengStateMain.add(ChengState(StateType.register)):
+    await _http.post(AppStrings.apiHost + urlGet, {}).then((value) async{
+      AppStrings.user = value;
+      if(value['userName'] != null) {
         chengStateMain.add(ChengState(StateType.home));
+      }
+      else{
+        chengStateMain.add(ChengState(StateType.register));
+      }
     }).catchError((e) {
       streamMessage.add(Message.danger(msg:e['message'], respite: 5));
     });
@@ -27,12 +31,15 @@ class UserService {
   Future GetAvatar() async{
     streamLoad.add('');
     await _http.post(AppStrings.apiHost + urlGetAvatar, {}).then((value) async {
-      print(value);
+      if(value != null){
+        await _setUserAvatarToLocal(value);
+      }
     }).catchError((e) {
       streamMessage.add(Message.danger(msg:e['message'], respite: 5));
     });
     streamLoad.add(null);
   }
+
   Future Edite(SendSecurityStampDto model) async{
     streamLoad.add('');
     await _http.post(AppStrings.apiHost + urlEdite, {}).then((value) async {
@@ -43,5 +50,14 @@ class UserService {
       streamMessage.add(Message.danger(msg:e['message'], respite: 5));
     });
     streamLoad.add(null);
+  }
+
+  Future _setUserAvatarToLocal(String userAvatar) async{
+    SharedPreferences local = await SharedPreferences.getInstance();
+    if(local.containsKey('userAvatar')){
+      await local.remove("userAvatar");
+    }
+    await local.setString('userAvatar', userAvatar);
+    AppStrings.userAvatar = userAvatar;
   }
 }
