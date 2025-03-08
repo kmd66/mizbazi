@@ -33,7 +33,7 @@ class AppHttp {
 
       if (response.statusCode == 200) {
 
-        if(response.data['Code'] == 401) {
+        if(response.data['code'] == 401) {
           error401();
           return;
         }

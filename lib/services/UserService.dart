@@ -1,9 +1,11 @@
+import 'dart:convert';
 import 'package:miz_bazi/core/appSettings.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../core/appHttp.dart';
 import '../core/event.dart';
-import '../model/ApiModel.dart';
+import '../core/extensions.dart';
 import '../model/Message.dart';
+import '../page/main/constText.dart';
 
 const String urlGet = "api/v1/User/Get";
 const String urlGetAvatar = "api/v1/User/GetAvatar";
@@ -40,12 +42,22 @@ class UserService {
     streamLoad.add(null);
   }
 
-  Future Edite(SendSecurityStampDto model) async{
+  Future Edite(dynamic model) async{
+    if(DynamicExtra.length(model['lastName']) < 4 || DynamicExtra.length(model['firstName']) < 4){
+      streamMessage.add(Message.danger(msg:USER_ERROR1, respite: 5));
+      return;
+    }
+    if(DynamicExtra.length(model['userName']) < 5){
+      streamMessage.add(Message.danger(msg:USER_ERROR2, respite: 5));
+      return;
+    }
+
     streamLoad.add('');
-    await _http.post(AppStrings.apiHost + urlEdite, {}).then((value) async {
-      SharedPreferences local = await SharedPreferences.getInstance();
-      await local.setString("auth",value);
-      chengStateMain.add(ChengState(StateType.splash));
+    await _http.post(AppStrings.apiHost + urlEdite, model).then((value) async {
+      AppStrings.user['firstName']=model['firstName'];
+      AppStrings.user['lastName']=model['lastName'];
+      AppStrings.user['userName']=model['userName'];
+      chengStateMain.add(ChengState(StateType.home));
     }).catchError((e) {
       streamMessage.add(Message.danger(msg:e['message'], respite: 5));
     });
@@ -58,6 +70,6 @@ class UserService {
       await local.remove("userAvatar");
     }
     await local.setString('userAvatar', userAvatar);
-    AppStrings.userAvatar = userAvatar;
+    AppStrings.userAvatar = base64Decode(userAvatar);
   }
 }

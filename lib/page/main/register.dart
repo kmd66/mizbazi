@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:typed_data';
 import 'package:miz_bazi/core/appSettings.dart';
 import 'package:path/path.dart' as path;
@@ -7,6 +6,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:miz_bazi/services/UserService.dart';
 import 'package:miz_bazi/services/uploadService.dart';
 import '../../Widgets/Btn.dart';
+import '../../Widgets/Input.dart';
+import '../../Widgets/imgMemory.dart';
 import '../../core/appColor.dart';
 import '../../core/appText.dart';
 import '../../core/event.dart';
@@ -26,6 +27,7 @@ class Register extends StatefulWidget {
 }
 
 class _State extends State<Register> {
+  var model = {'firstName': '', 'lastName': '', 'userName': ''};
   final ImagePicker _picker = ImagePicker();
   var _registerState = _registerStateType.empty;
   Uint8List? _image;
@@ -41,6 +43,9 @@ class _State extends State<Register> {
   }
 
   void load() async {
+    if(AppStrings.userAvatar == null) {
+      await _userService.GetAvatar();
+    }
     setState(() {
       if(AppStrings.userAvatar != null){
         _registerState = _registerStateType.user;
@@ -65,7 +70,7 @@ class _State extends State<Register> {
   }
 
   Widget selectAvatar(BuildContext context) {
-    return  Column(
+    return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Padding(
@@ -88,14 +93,10 @@ class _State extends State<Register> {
     return  Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 20),
-          child: Image.memory(
-            _image!,
-            height: 300,
-            width: 200,
-            fit: BoxFit.fill,
-          ),
+        AppImgMemory(
+          image: _image!,
+          margin: const EdgeInsets.symmetric(vertical: 15),
+          size: 300,
         ),
         Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -117,17 +118,44 @@ class _State extends State<Register> {
   }
 
   Widget insertUser(BuildContext context) {
-    return Container(
-      width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.height,
-      color: Colors.deepOrange,
-      child: Image.memory(
-        base64Decode(AppStrings.userAvatar!),
-        height: 300,
-        width: 200,
-        fit: BoxFit.fill,
-      ),
-    );
+    return
+      SingleChildScrollView(
+          child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                AppText(USER_MSG),
+                AppInput(
+                  margin: const EdgeInsets.symmetric(vertical: 15.0),
+                  text: FIRSTNAME,
+                  maxLength: 25,
+                  counterText: null,
+                  onChanged: (value )=>model['firstName']= value,
+                ),
+                AppInput(
+                  margin: const EdgeInsets.only(bottom: 15.0),
+                  text: LASTNAME,
+                  maxLength: 25,
+                  counterText: null,
+                  onChanged: (value )=>model['lastName']= value,
+                ),
+                AppInput(
+                  margin: const EdgeInsets.only(bottom: 15.0),
+                  text: USERNAME,
+                  ltr: true,
+                  maxLength: 25,
+                  counterText: null,
+                  onChanged: (value )=>model['userName']= value,
+                ),
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  padding: const EdgeInsets.symmetric(vertical: 10),
+                  child: AppBtn(
+                    text: SAVE,
+                    onPressed: ()=>_userService.Edite(model),
+                  ),
+                )
+              ])
+      );
   }
 
   void selectImg() async{

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import '../../core/appSettings.dart';
 import '../../core/appText.dart';
@@ -59,9 +60,9 @@ class _State extends State<splashPage> {
       return;
     }
     AppStrings.auth = await local.getString('auth');
-
     if(local.containsKey('userAvatar')){
-      AppStrings.userAvatar = await local.getString('userAvatar');
+      var vatar = await local.getString('userAvatar')!;
+      AppStrings.userAvatar = base64Decode(vatar);
     }
 
     await userService.Get();
