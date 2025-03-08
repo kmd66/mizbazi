@@ -16,10 +16,10 @@ class AppImgMemory extends StatelessWidget {
         margin: margin,
         padding: const EdgeInsets.symmetric(vertical: 2),
         decoration: BoxDecoration(
-          color: BtnShadowColor,
+          color: BtnShadowColor(),
           shape: BoxShape.circle, // دایره‌ای کردن کانتاینر
           border: Border.all(
-            color: BtnShadowColor, // رنگ حاشیه کم‌رنگ
+            color: BtnShadowColor(), // رنگ حاشیه کم‌رنگ
             width: 3, // ضخامت حاشیه
           ),
         ),

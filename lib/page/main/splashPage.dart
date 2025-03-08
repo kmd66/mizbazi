@@ -48,8 +48,9 @@ class _State extends State<splashPage> {
     if(local.containsKey('WebWersion')){
       await local.remove("WebWersion");
     }
-    await local.setString("WebWersion", model.webWersion!);
-    AppStrings.webWersion = model.webWersion!;
+    print(model.toJson());
+    AppStrings.webWersion = model;
+
 
     checkLogin(local);
   }

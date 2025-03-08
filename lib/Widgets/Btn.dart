@@ -13,7 +13,7 @@ class AppBtn extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
-        shadowColor:BtnShadowColor,
+        shadowColor:BtnShadowColor(),
         elevation: 3.0,
         backgroundColor:color,
       ),

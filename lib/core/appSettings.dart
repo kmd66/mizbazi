@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'package:flutter/services.dart';
 
+import '../model/CheckHost.dart';
+
 class AppStrings {
   static loadJson() async {
     String _data = await rootBundle.loadString('assets/appSettings.json');
@@ -17,7 +19,7 @@ class AppStrings {
 
   static String apiHost = '';
 
-  static String webWersion = '';
+  static late CheckHost webWersion;
 
   static String? deviceId;
   static String? auth;

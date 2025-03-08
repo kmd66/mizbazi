@@ -1,10 +1,17 @@
 import 'dart:async';
 
 import '../model/Message.dart';
+import '../page/Home/routes.dart';
 
 late StreamController<ChengState> chengStateMain;
+
 StreamController<String?> streamLoad = StreamController<String?>();
 StreamController<Message> streamMessage = StreamController<Message>();
+
+StreamController<MainBarType> streamMainBar = StreamController<MainBarType>();
+
+StreamController<RouteType> streamRoutes = StreamController<RouteType>();
+StreamController<DialogRouteType> streamDialogRoutes = StreamController<DialogRouteType>();
 
 enum StateType {
   reconnect,
@@ -13,6 +20,13 @@ enum StateType {
   register,
   home,
   empty,
+}
+
+enum MainBarType {
+  empty,
+  navBar,
+  appBar,
+  all
 }
 
 class ChengState {

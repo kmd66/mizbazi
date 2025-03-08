@@ -12,7 +12,7 @@ import 'package:miz_bazi/page/main/splashPage.dart';
 import '../../core/appInfo.dart';
 import '../../core/appSettings.dart';
 import '../../core/event.dart';
-import 'homePage.dart';
+import '../Home/homePage.dart';
 import 'login.dart';
 import 'package:flutter/services.dart';
 
@@ -23,7 +23,7 @@ class MainPage extends StatefulWidget {
 
 class _State extends State<MainPage> {
 
-  Widget _state =  splashPage();
+  Widget _state =  HomePage();
   
   StateType stateType = StateType.splash;
 
