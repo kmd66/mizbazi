@@ -27,14 +27,14 @@ class _state extends State<AppBody> {
   }
 
   void initStream() async{
-    _obj = Routes.change(RouteType.home);
+    _obj = Routes.change(ChengStateWeb(RouteType.home));
 
     if(streamRoutes.hasListener == true) {
       streamRoutes.close();
     }
-    streamRoutes = StreamController<RouteType>();
+    streamRoutes = StreamController<ChengStateWeb>();
     streamRoutes.stream.listen((value){
-      if(DialogRoutes.dialogType != value){
+      if(Routes.routeType != value.type){
         setState(() {
           _obj = Routes.change(value);
         });

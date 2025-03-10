@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:miz_bazi/core/extensions.dart';
-import '../../Widgets/Btn.dart';
+import '../../Widgets/btns.dart';
 import '../../Widgets/CounDown.dart';
 import '../../Widgets/Input.dart';
 import '../../core/appColor.dart';

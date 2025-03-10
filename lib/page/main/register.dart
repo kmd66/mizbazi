@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:miz_bazi/services/UserService.dart';
 import 'package:miz_bazi/services/uploadService.dart';
-import '../../Widgets/Btn.dart';
+import '../../Widgets/btns.dart';
 import '../../Widgets/Input.dart';
 import '../../Widgets/imgMemory.dart';
 import '../../core/appColor.dart';

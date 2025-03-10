@@ -16,7 +16,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _State extends State<HomePage> {
-  var barType = MainBarType.all;
+  var barType = MainBarType.empty;
 
   late AppBarMain _appBar;
   Widget get _body => AppBody();

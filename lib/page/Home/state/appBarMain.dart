@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:miz_bazi/core/appText.dart';
@@ -18,6 +20,21 @@ class AppBarMain extends StatefulWidget implements PreferredSizeWidget {
 }
 
 class _state extends State<AppBarMain> {
+
+  @override
+  void initState() {
+    super.initState();
+
+    if(streamAppBar.hasListener == true) {
+      streamAppBar.close();
+    }
+    streamAppBar = StreamController<bool>();
+    streamAppBar.stream.listen((value){
+      if(DialogRoutes.dialogType != value){
+        setState(() {});
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
