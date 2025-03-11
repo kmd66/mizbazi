@@ -21,7 +21,6 @@ class _State extends State<HomeWeb> {
 
   bool isExitBtn = true;
   String get _urlHome => AppStrings.apiHost + 'pages/Home';
-  String get _urlMain => AppStrings.apiHost + 'pages/Main';
 
   @override
   void initState() {
@@ -31,8 +30,8 @@ class _State extends State<HomeWeb> {
 
   @override
   void dispose() {
+    // _webViewController?.dispose();
     super.dispose();
-    _webViewController.dispose();
   }
 
   @override
@@ -72,21 +71,9 @@ class _State extends State<HomeWeb> {
     _webViewController.addJavaScriptHandler(
         handlerName: "onUrlLink",
         callback: (args) {
-          setState(()=>isExitBtn = false);
-          streamMainBar.add(MainBarType.all);
           var link = args[0].toString();
           Routes.mainGameWebLink= link;
-          _webViewController.loadUrl(urlRequest: URLRequest(url: WebUri(_urlMain+link)));
-          // streamRoutes.add(ChengStateWeb(RouteType.mainGame, mainGameWebLink : link));
-        });
-
-    _webViewController.addJavaScriptHandler(
-        handlerName: "fUrlBack",
-        callback: (args) {
-          setState(()=>isExitBtn = true);
-          streamMainBar.add(MainBarType.appBar);
-          Routes.mainGameWebLink= null;
-          _webViewController.loadUrl(urlRequest: URLRequest(url: WebUri(_urlHome)));
+          streamRoutes.add(ChengStateWeb(RouteType.mainGame, mainGameWebLink : link));
         });
   }
 }

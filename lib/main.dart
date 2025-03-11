@@ -8,7 +8,8 @@ void main() {
     MaterialApp(
       scrollBehavior: MyCustomScrollBehavior(),
       title: 'mize bazi',
-      theme: ThemeData(fontFamily: 'Tahoma',
+      theme: ThemeData(
+        fontFamily: 'vazir',
         primarySwatch: Colors.blue,
       ),
       debugShowCheckedModeBanner: false,

@@ -27,8 +27,8 @@ class _State extends State<MainGameWeb> {
 
   @override
   void dispose() {
+    // _webViewController?.dispose();
     super.dispose();
-    _webViewController.dispose();
   }
 
   @override
@@ -49,7 +49,6 @@ class _State extends State<MainGameWeb> {
     _webViewController.addJavaScriptHandler(
         handlerName: "fUrlBack",
         callback: (args) {
-          print('-----------fUrlBack-');
           streamRoutes.add(ChengStateWeb(RouteType.home));
         });
   }

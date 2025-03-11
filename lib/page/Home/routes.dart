@@ -37,7 +37,7 @@ class Routes {
 
   static Widget change(ChengStateWeb model) {
     routeType = model.type;
-
+    mainGameWebLink = model.mainGameWebLink;
     return switch (routeType){
       RouteType.empty => Container(width: 0,height: 0,),
       RouteType.home => HomeWeb(),

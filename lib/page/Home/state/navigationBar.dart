@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:miz_bazi/core/appText.dart';
-
 import '../../../Widgets/Icon.dart';
 import '../../../core/appColor.dart';
 import '../../../core/event.dart';
 import '../constText.dart';
+import '../routes.dart';
 
 class AppNavigationBar extends StatefulWidget implements PreferredSizeWidget{
   AppNavigationBar({super.key}) : preferredSize = Size.fromHeight(kToolbarHeight);
@@ -36,23 +36,23 @@ class _state extends State<AppNavigationBar> {
     list.add(selectContainer(
         title: PROFILE,
         icon: Iconsax.user,
-        onPress: ()=>streamMainBar.add(MainBarType.navBar)
+        onPress: ()=>streamRoutes.add(ChengStateWeb(RouteType.mainGame, mainGameWebLink : '89'))
     ));
     list.add(selectContainer(
         title: '0 \$',
         icon: Iconsax.coin_15,
-        onPress: ()=>streamMainBar.add(MainBarType.navBar)
+        onPress: ()=>streamRoutes.add(ChengStateWeb(RouteType.mainGame, mainGameWebLink : '68'))
     ));
     list.add( homeContainer());
     list.add(selectContainer(
         title: GARDONE,
         icon: Iconsax.bitcoin_refresh,
-        onPress: ()=>streamMainBar.add(MainBarType.navBar)
+        onPress: ()=>streamRoutes.add(ChengStateWeb(RouteType.mainGame, mainGameWebLink : '25'))
     ));
     list.add(selectContainer(
         title:GROUP,
         icon: Iconsax.people,
-        onPress: ()=>streamMainBar.add(MainBarType.navBar)
+        onPress: ()=>streamRoutes.add(ChengStateWeb(RouteType.mainGame, mainGameWebLink : '45'))
     ));
   }
 
@@ -88,7 +88,7 @@ class _state extends State<AppNavigationBar> {
         ),
       ),
       InkWell(
-          onTap: ()=>streamMainBar.add(MainBarType.all),
+          onTap: ()=>streamRoutes.add(ChengStateWeb(RouteType.home)),
           child:Container(
             transform: Matrix4.translationValues(0.0, -25, 0.0),
             height: 60,
