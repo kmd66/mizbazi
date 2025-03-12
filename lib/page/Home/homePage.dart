@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:miz_bazi/page/Home/state/appBarMain.dart';
 import 'package:miz_bazi/page/Home/state/body.dart';
@@ -11,16 +10,22 @@ import '../../core/appColor.dart';
 import '../../core/event.dart';
 
 class HomePage extends StatefulWidget {
+
   @override
   State<HomePage> createState() => _State();
 }
 
 class _State extends State<HomePage> {
+
   var barType = MainBarType.empty;
 
-  late AppBarMain _appBar;
+  PreferredSizeWidget? get _appBar =>
+      barType == MainBarType.all ||
+      barType == MainBarType.appBar ? AppBarMain() : null;
   Widget get _body => AppBody();
-  Widget get _navigationBar => AppNavigationBar();
+  PreferredSizeWidget? get _navigationBar =>
+      barType == MainBarType.all ||
+      barType == MainBarType.navBar ? AppNavigationBar() : null;
 
   @override
   void initState() {
@@ -37,17 +42,18 @@ class _State extends State<HomePage> {
     if(streamMainBar.hasListener == true) {
       streamMainBar.close();
     }
+
     streamMainBar = StreamController<MainBarType>();
     streamMainBar.stream.listen((value){
       setState(() {
         barType = value;
       });
     });
+
   }
 
   @override
   Widget build(BuildContext context) {
-    _appBar = AppBarMain();
     return Stack(
       children: [
         Container(
@@ -56,9 +62,9 @@ class _State extends State<HomePage> {
           color: BackgroundColor,
         ),
         Scaffold(
-          appBar:barType == MainBarType.all || barType == MainBarType.appBar? _appBar:null,
+          appBar:_appBar,
           body: _body,
-          bottomNavigationBar:barType == MainBarType.all || barType == MainBarType.navBar?_navigationBar:null,
+          bottomNavigationBar:_navigationBar,
         ),
         AppLoad(),
         MessageApp(),
@@ -66,4 +72,5 @@ class _State extends State<HomePage> {
       ],
     );
   }
+
 }

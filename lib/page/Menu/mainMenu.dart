@@ -27,16 +27,16 @@ class _State extends State<MainMenu> {
 
   void setItem() {
     list.add(item(
-        lable: 'jsj 1',
-        icon: Iconsax.user,
+        lable: 'home',
+        icon: Iconsax.home,
         margin:const EdgeInsets.symmetric(vertical: 5),
-        onPress:(){}
+        onPress:()=>streamRoutes.add(ChengStateWeb(RouteType.home)),
     ));
     list.add(item(
-        lable: 'jsj 1',
-        icon: Iconsax.user,
+        lable: 'coinWeb',
+        icon: Iconsax.bitcoin_refresh,
         margin:const EdgeInsets.symmetric(vertical: 5),
-        onPress:(){}
+        onPress:()=>streamRoutes.add(ChengStateWeb(RouteType.coinWeb)),
     ));
   }
 
@@ -101,6 +101,7 @@ class _State extends State<MainMenu> {
         margin:margin,
         child: InkWell(
             onTap: (){
+              close();
               onPress();
             },
             child:Column(children: [

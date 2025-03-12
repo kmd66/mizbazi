@@ -1,14 +1,20 @@
 import 'package:flutter/cupertino.dart';
-import 'package:miz_bazi/page/Home/webPage/homeWeb.dart';
-import 'package:miz_bazi/page/Home/webPage/mainGamePage.dart';
 import '../../core/event.dart';
 import '../Menu/mainMenu.dart';
+import '../testKhande/testKhandePage.dart';
+import '../webPage/coinWeb.dart';
+import '../webPage/helpWeb.dart';
+import '../webPage/homeWeb.dart';
+import '../webPage/mainGamePage.dart';
 import 'constText.dart';
 
 enum RouteType {
   empty,
   home,
-  mainGame,
+  gameMain,
+  gameHelp,
+  testKhande,
+  coinWeb,
 }
 class Routes {
   static RouteType routeType = RouteType.empty;
@@ -24,9 +30,13 @@ class Routes {
 
   static String get routeName => switch (routeType){
     RouteType.empty => ' ',
-    RouteType.home => _mainGameNAme,
-    RouteType.mainGame => _mainGameNAme,
+    RouteType.home => HOME_PAGE,
+    RouteType.gameHelp => HELP,
+    RouteType.gameMain => _mainGameNAme,
+    RouteType.testKhande => TESTLABKHAND,
+    RouteType.coinWeb => COIN,
   };
+
   static String get _mainGameNAme => switch (Routes.mainGameWebLink){
     '25' => NABARD_KHANDE,
     '45' => RANG_RAZE,
@@ -41,7 +51,10 @@ class Routes {
     return switch (routeType){
       RouteType.empty => Container(width: 0,height: 0,),
       RouteType.home => HomeWeb(),
-      RouteType.mainGame => MainGameWeb(link:mainGameWebLink!,),
+      RouteType.gameMain => MainGameWeb(link:mainGameWebLink!,),
+      RouteType.gameHelp => HelpWeb(link:mainGameWebLink!,),
+      RouteType.testKhande => TestKhandePage(),
+      RouteType.coinWeb => CoinWeb(),
     };
   }
 

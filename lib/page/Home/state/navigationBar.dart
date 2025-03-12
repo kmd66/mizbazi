@@ -26,7 +26,6 @@ class _state extends State<AppNavigationBar> {
     super.initState();
   }
 
-
   @override
   void dispose() {
     super.dispose();
@@ -36,23 +35,23 @@ class _state extends State<AppNavigationBar> {
     list.add(selectContainer(
         title: PROFILE,
         icon: Iconsax.user,
-        onPress: ()=>streamRoutes.add(ChengStateWeb(RouteType.mainGame, mainGameWebLink : '89'))
+        onPress: ()=>streamRoutes.add(ChengStateWeb(RouteType.gameMain, mainGameWebLink : '89'))
     ));
     list.add(selectContainer(
         title: '0 \$',
-        icon: Iconsax.coin_15,
-        onPress: ()=>streamRoutes.add(ChengStateWeb(RouteType.mainGame, mainGameWebLink : '68'))
+        icon: Iconsax.bitcoin_refresh,
+        onPress: ()=>streamRoutes.add(ChengStateWeb(RouteType.coinWeb))
     ));
     list.add( homeContainer());
     list.add(selectContainer(
-        title: GARDONE,
-        icon: Iconsax.bitcoin_refresh,
-        onPress: ()=>streamRoutes.add(ChengStateWeb(RouteType.mainGame, mainGameWebLink : '25'))
+        title: HISTORY,
+        icon: Iconsax.calendar_tick,
+        onPress: ()=>streamRoutes.add(ChengStateWeb(RouteType.gameMain, mainGameWebLink : '25'))
     ));
     list.add(selectContainer(
         title:GROUP,
         icon: Iconsax.people,
-        onPress: ()=>streamRoutes.add(ChengStateWeb(RouteType.mainGame, mainGameWebLink : '45'))
+        onPress: ()=>streamRoutes.add(ChengStateWeb(RouteType.gameMain, mainGameWebLink : '45'))
     ));
   }
 
@@ -88,7 +87,7 @@ class _state extends State<AppNavigationBar> {
         ),
       ),
       InkWell(
-          onTap: ()=>streamRoutes.add(ChengStateWeb(RouteType.home)),
+          onTap: ()=> streamRoutes.add(ChengStateWeb(RouteType.home)),
           child:Container(
             transform: Matrix4.translationValues(0.0, -25, 0.0),
             height: 60,

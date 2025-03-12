@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
-import 'package:miz_bazi/Widgets/baseWeb.dart';
+import 'package:miz_bazi/page/webPage/baseWeb.dart';
 import 'package:miz_bazi/core/event.dart';
 import '../../../core/appSettings.dart';
-import '../routes.dart';
+import '../Home/routes.dart';
 
 class MainGameWeb extends StatefulWidget {
   const MainGameWeb({super.key, required this.link});
@@ -17,7 +17,7 @@ class _State extends State<MainGameWeb> {
 
   late InAppWebViewController _webViewController;
 
-  String get _url => AppStrings.apiHost + 'pages/Main' + widget.link;
+  String get _url => '${AppStrings.apiHost}pages/main?gameId=${widget.link}';
 
   @override
   void initState() {
@@ -27,7 +27,6 @@ class _State extends State<MainGameWeb> {
 
   @override
   void dispose() {
-    // _webViewController?.dispose();
     super.dispose();
   }
 
@@ -36,20 +35,18 @@ class _State extends State<MainGameWeb> {
     return Stack(children: [
       BaseWeb(
           url: _url,
-          onWebViewCreated:(c)
-          {
-            _webViewController = c;
-            javaScriptHandler();
-          }
+          onWebViewCreated:(c)=>javaScriptHandler(c)
       ),
     ]);
   }
 
-  void javaScriptHandler() {
+  void javaScriptHandler(InAppWebViewController c) {
+    _webViewController = c;
     _webViewController.addJavaScriptHandler(
-        handlerName: "fUrlBack",
+        handlerName: "f_urlBack",
         callback: (args) {
           streamRoutes.add(ChengStateWeb(RouteType.home));
         });
   }
+
 }

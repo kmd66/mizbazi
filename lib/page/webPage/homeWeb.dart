@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:miz_bazi/Widgets/baseWeb.dart';
+import 'package:miz_bazi/page/webPage/baseWeb.dart';
 import 'package:miz_bazi/Widgets/showObj.dart';
 import 'package:miz_bazi/core/appColor.dart';
 import 'package:miz_bazi/core/event.dart';
-
 import '../../../Widgets/btns.dart';
 import '../../../core/appSettings.dart';
-import '../routes.dart';
+import '../Home/routes.dart';
 
 class HomeWeb extends StatefulWidget {
   @override
@@ -69,11 +68,23 @@ class _State extends State<HomeWeb> {
   void javaScriptHandler() {
 
     _webViewController.addJavaScriptHandler(
-        handlerName: "onUrlLink",
+        handlerName: "f_urlHelp",
         callback: (args) {
           var link = args[0].toString();
-          Routes.mainGameWebLink= link;
-          streamRoutes.add(ChengStateWeb(RouteType.mainGame, mainGameWebLink : link));
+          streamRoutes.add(ChengStateWeb(RouteType.gameHelp, mainGameWebLink : link));
+        });
+
+    _webViewController.addJavaScriptHandler(
+        handlerName: "f_urlMain",
+        callback: (args) {
+          var link = args[0].toString();
+          streamRoutes.add(ChengStateWeb(RouteType.gameMain, mainGameWebLink : link));
+        });
+
+    _webViewController.addJavaScriptHandler(
+        handlerName: "f_testKhande",
+        callback: (args) {
+          streamRoutes.add(ChengStateWeb(RouteType.testKhande));
         });
   }
 }
