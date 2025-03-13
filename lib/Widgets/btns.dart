@@ -2,12 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:miz_bazi/core/appText.dart';
 import '../core/appColor.dart';
+import 'Icon.dart';
 
 class AppBtn extends StatelessWidget {
-  AppBtn( {required this.text, required this.onPressed, this.color = BtnColor});
+  AppBtn( {required this.text, required this.onPress, this.color = BtnColor});
   final String text;
   final Color color;
-  final Function() onPressed;
+  final Function() onPress;
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +21,7 @@ class AppBtn extends StatelessWidget {
         elevation: 3.0,
         backgroundColor:color,
       ),
-      onPressed: ()=>onPressed(),
+      onPressed: ()=>onPress(),
       child:Padding(
         padding: const EdgeInsets.symmetric(vertical: 5),
         child: AppText(text),
@@ -29,22 +30,57 @@ class AppBtn extends StatelessWidget {
   }
 }
 class CircleBtn extends StatelessWidget {
-  CircleBtn( {required this.onPressed, this.color = BtnColor, required this.icon});
+  CircleBtn( {required this.onPress, this.color = BtnColor, required this.icon, this.text});
   final IconData icon;
   final Color color;
-  final Function() onPressed;
+  final String? text;
+  final Function() onPress;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) =>text == null? iconbtn(context):iconTextbtn(context);
+
+  Widget iconbtn(BuildContext context) {
     return ClipOval(
       child: Material(
         color: color, // Button color
         child: InkWell(
           splashColor: BtnShadowColor(opacity: 0.3), // Splash color
-          onTap: ()=>onPressed(),
-          child: SizedBox(width: 56, height: 56, child: Icon(icon, color: TextColor2,)),
+          onTap: ()=>onPress(),
+          child: SizedBox(width: 56, height: 56, child: AppIcon(icon)),
         ),
       ),
     );
   }
+
+  Widget iconTextbtn(BuildContext context) {
+    return ClipOval(
+        child:
+        Container(
+            color: color,
+            height: 60,
+            width: 60,
+            child:InkWell(
+              onTap: ()=>onPress(),
+              child:
+              Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Center(
+                        child:
+                        AppIcon(icon,)
+                    ) ,
+                    Padding(
+                        padding: EdgeInsets.only(top: 1.0),
+                        child:
+                        Center(
+                            child:
+                            AppText(text!,fontSize: 10,color: TextColor2,))
+                    ),
+                  ]),
+            )
+        )
+    );
+  }
+
 }

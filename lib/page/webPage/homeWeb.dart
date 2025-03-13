@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
-import 'package:iconsax/iconsax.dart';
 import 'package:miz_bazi/page/webPage/baseWeb.dart';
-import 'package:miz_bazi/Widgets/showObj.dart';
-import 'package:miz_bazi/core/appColor.dart';
 import 'package:miz_bazi/core/event.dart';
-import '../../../Widgets/btns.dart';
 import '../../../core/appSettings.dart';
 import '../Home/routes.dart';
+import '../Home/state/homeNavigationBar.dart';
 
 class HomeWeb extends StatefulWidget {
   @override
@@ -44,25 +41,9 @@ class _State extends State<HomeWeb> {
             javaScriptHandler();
           }
       ),
-      exitBtn()
+      HomeNavigationBar()
 
     ]);
-  }
-  Widget exitBtn() {
-    return ShowObj(obj:
-    Positioned (
-        bottom: 15,
-        left: 15,
-        child: CircleBtn(
-          icon: Iconsax.logout,
-          color:BaseColor,
-          onPressed: (){
-            // exit(0);
-          },
-        )
-    ),
-        isShow: isExitBtn
-    );
   }
 
   void javaScriptHandler() {

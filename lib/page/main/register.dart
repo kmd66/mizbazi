@@ -82,7 +82,7 @@ class _State extends State<Register> {
           padding: const EdgeInsets.symmetric(vertical: 10),
           child: AppBtn(
             text: SELECT_IMG,
-            onPressed: ()=> selectImg(),
+            onPress: ()=> selectImg(),
           ),
         ),
       ],
@@ -104,12 +104,12 @@ class _State extends State<Register> {
               AppBtn(
                 color: SuccessColor,
                 text: UPLOAD_IMG,
-                onPressed: ()=>uploadImg(),
+                onPress: ()=>uploadImg(),
               ),
               AppBtn(
                 color: TextColor2,
                 text: CANCEL,
-                onPressed: ()=> setState(()=>_registerState = _registerStateType.avatarSelect),
+                onPress: ()=> setState(()=>_registerState = _registerStateType.avatarSelect),
               ),
             ]
         )
@@ -151,7 +151,7 @@ class _State extends State<Register> {
                   padding: const EdgeInsets.symmetric(vertical: 10),
                   child: AppBtn(
                     text: SAVE,
-                    onPressed: ()=>_userService.Edite(model),
+                    onPress: ()=>_userService.Edite(model),
                   ),
                 )
               ])

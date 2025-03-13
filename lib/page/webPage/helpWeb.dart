@@ -38,21 +38,12 @@ class _State extends State<HelpWeb> {
       BaseWeb(
           url: _url,
           onWebViewCreated:(c)=>javaScriptHandler(c)
-      ),Positioned (
-          bottom: 15,
-          left: 15,
-          child: CircleBtn(
-            icon: Iconsax.logout,
-            color:BaseColor,
-            onPressed: () async{
-            },
-          )
       )
     ]);
   }
 
   void javaScriptHandler(InAppWebViewController c) async {
     _webViewController = c;
-    await _webViewController.evaluateJavascript(source: "publicToken = 'فخنثد'; publicDeviceId = '14';");
+    await _webViewController.evaluateJavascript(source: "publicToken = '${AppStrings.auth}'; publicDeviceId = '${AppStrings.deviceId}';");
   }
 }

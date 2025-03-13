@@ -64,7 +64,7 @@ class _State extends State<Login> {
           padding: const EdgeInsets.symmetric(vertical: 10),
           child: AppBtn(
             text: SEND,
-            onPressed: ()=>sendPhoneNumber(),
+            onPress: ()=>sendPhoneNumber(),
           ),
         ),
       ],
@@ -97,12 +97,12 @@ class _State extends State<Login> {
             AppBtn(
               color: SuccessColor,
               text: SEND,
-              onPressed: ()=>sendSecurityStamp(),
+              onPress: ()=>sendSecurityStamp(),
             ),
             AppBtn(
               color: TextColor2,
               text: CANCEL,
-              onPressed: ()=> setState(()=> loginState = _loginStateType.phoneNumber),
+              onPress: ()=> setState(()=> loginState = _loginStateType.phoneNumber),
             ),
           ]
         )

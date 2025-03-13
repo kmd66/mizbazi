@@ -34,7 +34,7 @@ class _State extends State<TestKhandePage> {
                 padding: const EdgeInsets.symmetric(vertical: 10),
                 child: AppBtn(
                   text: 'SELECT_IMG',
-                  onPressed: () {
+                  onPress: () {
 
                   },
                 ),
@@ -42,14 +42,14 @@ class _State extends State<TestKhandePage> {
               AppBtn(
                 color: SuccessColor,
                 text: 'SEND',
-                onPressed: () {
+                onPress: () {
 
                 },
               ),
               AppBtn(
                 color: TextColor2,
                 text: 'CANCEL',
-                onPressed: () {
+                onPress: () {
 
                 },
               ),
