@@ -23,7 +23,7 @@ class MainPage extends StatefulWidget {
 
 class _State extends State<MainPage> {
 
-  Widget _state =  HomePage();
+  Widget _state =  splashPage();
   
   StateType stateType = StateType.splash;
 

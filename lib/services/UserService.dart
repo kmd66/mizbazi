@@ -7,7 +7,7 @@ import '../core/extensions.dart';
 import '../model/Message.dart';
 import '../page/main/constText.dart';
 
-const String urlGet = "api/v1/User/Get";
+const String urlGet = "api/v1/User/GetViwe";
 const String urlGetAvatar = "api/v1/User/GetAvatar";
 const String urlEdite = "api/v1/User/Edit";
 
@@ -34,7 +34,7 @@ class UserService {
     streamLoad.add('');
     await _http.post(AppStrings.apiHost + urlGetAvatar, {}).then((value) async {
       if(value != null){
-        await _setUserAvatarToLocal(value);
+        AppStrings.user['img']=value;
       }
     }).catchError((e) {
       streamMessage.add(Message.danger(msg:e['message'], respite: 5));
@@ -64,12 +64,12 @@ class UserService {
     streamLoad.add(null);
   }
 
-  Future _setUserAvatarToLocal(String userAvatar) async{
-    SharedPreferences local = await SharedPreferences.getInstance();
-    if(local.containsKey('userAvatar')){
-      await local.remove("userAvatar");
-    }
-    await local.setString('userAvatar', userAvatar);
-    AppStrings.userAvatar = base64Decode(userAvatar);
-  }
+  // Future _setUserAvatarToLocal(String userAvatar) async{
+  //   SharedPreferences local = await SharedPreferences.getInstance();
+  //   if(local.containsKey('userAvatar')){
+  //     await local.remove("userAvatar");
+  //   }
+  //   await local.setString('userAvatar', userAvatar);
+  //   AppStrings.userAvatar = base64Decode(userAvatar);
+  // }
 }

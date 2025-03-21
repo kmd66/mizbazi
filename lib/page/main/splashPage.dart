@@ -60,11 +60,6 @@ class _State extends State<splashPage> {
       return;
     }
     AppStrings.auth = await local.getString('auth');
-    if(local.containsKey('userAvatar')){
-      var vatar = await local.getString('userAvatar')!;
-      AppStrings.userAvatar = base64Decode(vatar);
-    }
-
     await userService.Get();
   }
 

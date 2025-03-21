@@ -43,11 +43,8 @@ class _State extends State<Register> {
   }
 
   void load() async {
-    if(AppStrings.userAvatar == null) {
-      await _userService.GetAvatar();
-    }
     setState(() {
-      if(AppStrings.userAvatar != null){
+      if(AppStrings.user['img'] != null){
         _registerState = _registerStateType.user;
       }
       else {
