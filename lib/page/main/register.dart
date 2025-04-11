@@ -179,11 +179,10 @@ class _State extends State<Register> {
 
   void uploadImg() async {
     final fileExtension = path.extension(_imageName!).toLowerCase();
-    var result = await _uploadService.Avatar(_image!, fileExtension, _mimeType! );
+    var result = await _uploadService.Avatar(_image!, fileExtension, _mimeType ==null?"image/jpeg":_mimeType! );
     if (result) {
       await _userService.GetAvatar();
       load();
     }
   }
-
 }

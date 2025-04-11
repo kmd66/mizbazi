@@ -39,6 +39,25 @@ class _State extends State<HomeWeb> {
           {
             _webViewController = c;
             javaScriptHandler();
+          },
+          onLoadStop:() async{
+            var script = """
+                function saveTokenToLocalStorage(deviceId, token) {
+                    if (localStorage.getItem("publicDeviceId") != null) {
+                        localStorage.removeItem("publicDeviceId");
+                    }
+                    if (localStorage.getItem("publicToken") != null) {
+                        localStorage.removeItem("publicToken");
+                    }
+                    localStorage.setItem("publicDeviceId", deviceId);
+                    localStorage.setItem("publicToken", token);
+                    publicDeviceId = deviceId;
+                    publicToken = token;
+                }
+                saveTokenToLocalStorage('${AppStrings.deviceId}', '${AppStrings.auth}');
+""";
+            await _webViewController.evaluateJavascript(source: script);
+
           }
       ),
       HomeNavigationBar()

@@ -3,9 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 
 class BaseWeb extends StatefulWidget {
-  BaseWeb({required this.url, this.onWebViewCreated});
+  BaseWeb({required this.url, this.onWebViewCreated, this.onLoadStop});
   final String url;
   final Function(InAppWebViewController)? onWebViewCreated;
+  final Function()? onLoadStop;
 
   @override
   _state createState() => _state();
@@ -83,6 +84,9 @@ class _state extends State<BaseWeb>{
       onLoadStop: (controller, url) {
         setState(() {
           isLoading = false;
+          if(!hasError && widget.onLoadStop != null){
+            widget.onLoadStop!();
+          }
         });
       },
       onReceivedError: (controller, request, error) {
