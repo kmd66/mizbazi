@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
-import 'package:iconsax/iconsax.dart';
 import 'package:miz_bazi/page/webPage/baseWeb.dart';
 import 'package:miz_bazi/core/event.dart';
 import '../../../core/appSettings.dart';
-import '../../Widgets/btns.dart';
-import '../../core/appColor.dart';
 
 class HelpWeb extends StatefulWidget {
   const HelpWeb({super.key, required this.link});

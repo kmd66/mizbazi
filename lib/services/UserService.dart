@@ -1,6 +1,4 @@
-import 'dart:convert';
 import 'package:miz_bazi/core/appSettings.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import '../core/appHttp.dart';
 import '../core/event.dart';
 import '../core/extensions.dart';
