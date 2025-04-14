@@ -25,5 +25,6 @@ class AppStrings {
   static String? deviceId;
   static String? auth;
   static dynamic user;
+  static String? downloadPath;
   // static Uint8List? userAvatar;
 }

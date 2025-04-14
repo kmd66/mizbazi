@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
-import 'package:miz_bazi/page/webPage/baseWeb.dart';
 import 'package:miz_bazi/core/event.dart';
-import '../../../core/appSettings.dart';
+import 'package:path/path.dart' as path;
+import 'dart:io';
+import '../../core/appSettings.dart';
 
 class CoinWeb extends StatefulWidget {
 
@@ -12,12 +13,23 @@ class CoinWeb extends StatefulWidget {
 
 class _State extends State<CoinWeb> {
 
-  String get _url => '${AppStrings.apiHost}home/WheelFortune';
+  String? decryptedHtml;
 
   @override
   void initState() {
-    streamMainBar.add(MainBarType.all);
     super.initState();
+    streamMainBar.add(MainBarType.all);
+    loadHtml();
+  }
+  Future loadHtml() async{
+    if(decryptedHtml != null)
+      return;
+    var _path = path.join(AppStrings.downloadPath!, 'WheelFortune.html');
+    final file = File(_path);
+    String content = await file.readAsString();
+    setState(() {
+      decryptedHtml =content;
+    });
   }
 
   @override
@@ -28,10 +40,15 @@ class _State extends State<CoinWeb> {
   @override
   Widget build(BuildContext context) {
     return Stack(children: [
-      BaseWeb(
-          url: _url,
-          onWebViewCreated:(c)=>javaScriptHandler(c)
-      ),
+      decryptedHtml == null
+          ? const Center(child: CircularProgressIndicator())
+          : InAppWebView(
+          initialData: InAppWebViewInitialData(
+          data: decryptedHtml!,
+          encoding: "utf-8",
+          mimeType: "text/html",
+        ),
+      )
     ]);
   }
 

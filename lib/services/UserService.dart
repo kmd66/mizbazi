@@ -32,7 +32,7 @@ class UserService {
     streamLoad.add('');
     await _http.post(AppStrings.apiHost + urlGetAvatar, {}).then((value) async {
       if(value != null){
-        AppStrings.user['img']=value;
+        AppStrings.user['img'] = value;
       }
     }).catchError((e) {
       streamMessage.add(Message.danger(msg:e['message'], respite: 5));

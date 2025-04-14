@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:path_provider/path_provider.dart';
 import '../../core/appSettings.dart';
 import '../../core/appText.dart';
 import '../../core/event.dart';
@@ -7,6 +8,7 @@ import '../../services/UserService.dart';
 import '../../services/pblService.dart';
 import 'constText.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:io';
 
 class splashPage extends StatefulWidget {
   @override
@@ -30,11 +32,22 @@ class _State extends State<splashPage> {
     await Future.delayed(const Duration(milliseconds: 500));
     await AppStrings.loadJson();
     setState(() {});
-    checkHost();
+    _getDownloadPath();
   }
 
-  Future<void> checkHost() async {
+  Future _getDownloadPath() async {
+    await Future.delayed(const Duration(milliseconds: 500));
+    // AppStrings.downloadPath =  (await getApplicationDocumentsDirectory()).path;
 
+    if (Platform.isAndroid) {
+      Directory? dir = await getExternalStorageDirectory();
+      AppStrings.downloadPath =  "${dir?.path}";
+    }else {
+      AppStrings.downloadPath = (await getApplicationDocumentsDirectory()).path;
+    }
+    checkHost();
+  }
+  Future<void> checkHost() async {
     await Future.delayed(const Duration(seconds: 2));
     var service = PblService();
     var model = await service.checkHost();
@@ -48,7 +61,6 @@ class _State extends State<splashPage> {
       await local.remove("WebWersion");
     }
     AppStrings.webWersion = model;
-
 
     checkLogin(local);
   }

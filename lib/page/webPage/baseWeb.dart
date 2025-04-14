@@ -102,7 +102,7 @@ class _state extends State<BaseWeb>{
   }
   InAppWebViewSettings _WebSettings() {
     return InAppWebViewSettings(
-      cacheEnabled: true, // فعال‌سازی کش
+      cacheEnabled: false, // فعال‌سازی کش
       // cacheMode: CacheMode.LOAD_CACHE_ELSE_NETWORK,
       mediaPlaybackRequiresUserGesture: false,
       // فعال کردن JavaScript
