@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:miz_bazi/core/event.dart';
-import 'package:path/path.dart' as path;
-import 'dart:io';
 import '../../core/appSettings.dart';
+import '../../services/localServer.dart';
 
 class CoinWeb extends StatefulWidget {
 
@@ -22,14 +21,8 @@ class _State extends State<CoinWeb> {
     loadHtml();
   }
   Future loadHtml() async{
-    if(decryptedHtml != null)
-      return;
-    var _path = path.join(AppStrings.downloadPath!, 'WheelFortune.html');
-    final file = File(_path);
-    String content = await file.readAsString();
-    setState(() {
-      decryptedHtml =content;
-    });
+    final server = LocalServer();
+    await server.start(folderPath: AppStrings.downloadPath!, port: 8014);
   }
 
   @override
@@ -39,19 +32,51 @@ class _State extends State<CoinWeb> {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(children: [
-      decryptedHtml == null
-          ? const Center(child: CircularProgressIndicator())
-          : InAppWebView(
-          initialData: InAppWebViewInitialData(
-          data: decryptedHtml!,
-          encoding: "utf-8",
-          mimeType: "text/html",
-        ),
-      )
-    ]);
+    return InAppWebView(
+      // key: ValueKey(DateTime.now().toString()), 127.0.0.1 یا localhost
+      initialUrlRequest: URLRequest(url: WebUri('http://127.0.0.1:8014/Main89.html')),
+      initialSettings:_WebSettings(),
+      onWebViewCreated: (controller) {
+      },
+      onConsoleMessage: (controller, consoleMessage) {
+      },
+
+      onReceivedServerTrustAuthRequest: (controller, challenge) async {
+        return ServerTrustAuthResponse(action: ServerTrustAuthResponseAction.PROCEED);
+      },
+
+      onLoadStart: (controller, url) {
+      },
+      onLoadStop: (controller, url) {
+      },
+      onReceivedHttpError: (controller, request, errorResponse) {
+      },
+      onReceivedError: (controller, request, error) {
+      },
+
+    );
   }
 
+  InAppWebViewSettings _WebSettings() {
+    return InAppWebViewSettings(
+      cacheEnabled: false, // فعال‌سازی کش
+      // cacheMode: CacheMode.LOAD_CACHE_ELSE_NETWORK,
+      mediaPlaybackRequiresUserGesture: false,
+      // فعال کردن JavaScript
+      javaScriptEnabled: true,
+      // اجازه پخش رسانه درون‌خطی (برای iOS)
+      allowsInlineMediaPlayback: true,
+      // تنظیمات مربوط به دسترسی به دوربین و میکروفون
+      iframeAllow: "camera; microphone",
+
+      // تنظیمات مربوط به رابط کاربری
+      transparentBackground: true,
+      disableContextMenu: false,
+      // تنظیمات مربوط به امنیت
+      // safeBrowsingEnabled: true,
+
+    );
+  }
   void javaScriptHandler(InAppWebViewController c) {
 
   }

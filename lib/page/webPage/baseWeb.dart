@@ -89,15 +89,16 @@ class _state extends State<BaseWeb>{
           }
         });
       },
-      onReceivedError: (controller, request, error) {
-        if(error.type.toString().contains('CONNECT')) {
-          setState(() {
-          hasError = true;
-          isLoading = false;
-        });
+      onReceivedHttpError: (controller, request, errorResponse) {
+        if (errorResponse.statusCode != null && errorResponse.statusCode! > 400 ) {
+          // setState(() {
+          //   hasError = true;
+          //   isLoading = false;
+          // });
         }
       },
-
+      onReceivedError: (controller, request, error) {
+      },
     );
   }
   InAppWebViewSettings _WebSettings() {

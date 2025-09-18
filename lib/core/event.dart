@@ -36,7 +36,7 @@ class ChengState {
   final String msg;
 }
 class ChengStateWeb {
-  ChengStateWeb(this.type, { this.mainGameWebLink});
+  ChengStateWeb(this.type, { this.link});
   final RouteType type;
-  final String? mainGameWebLink;
+  final String? link;
 }

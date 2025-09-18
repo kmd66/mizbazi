@@ -71,20 +71,20 @@ class _State extends State<HomeWeb> {
         handlerName: "f_urlHelp",
         callback: (args) {
           var link = args[0].toString();
-          streamRoutes.add(ChengStateWeb(RouteType.gameHelp, mainGameWebLink : link));
+          streamRoutes.add(ChengStateWeb(RouteType.gameHelp, link : link));
         });
 
     _webViewController.addJavaScriptHandler(
         handlerName: "f_urlMain",
         callback: (args) {
           var link = args[0].toString();
-          streamRoutes.add(ChengStateWeb(RouteType.gameMain, mainGameWebLink : link));
+          streamRoutes.add(ChengStateWeb(RouteType.gameMain, link : link));
         });
 
     _webViewController.addJavaScriptHandler(
         handlerName: "f_testKhande",
         callback: (args) {
-          streamRoutes.add(ChengStateWeb(RouteType.testKhande));
+          streamRoutes.add(ChengStateWeb(RouteType.game));
         });
   }
 }

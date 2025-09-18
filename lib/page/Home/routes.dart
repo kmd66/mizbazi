@@ -3,6 +3,7 @@ import '../../core/event.dart';
 import '../Menu/mainMenu.dart';
 import '../testKhande/testKhandePage.dart';
 import '../webPage/coinWeb.dart';
+import '../webPage/gamePage.dart';
 import '../webPage/helpWeb.dart';
 import '../webPage/homeWeb.dart';
 import '../webPage/mainGamePage.dart';
@@ -11,6 +12,7 @@ import 'constText.dart';
 enum RouteType {
   empty,
   home,
+  game,
   gameMain,
   gameHelp,
   testKhande,
@@ -19,11 +21,11 @@ enum RouteType {
 class Routes {
   static RouteType routeType = RouteType.empty;
 
-  static String? _mainGameWebLink;
-  static String? get mainGameWebLink=>_mainGameWebLink;
-  static set mainGameWebLink (String? value) {
+  static String? _link;
+  static String? get link=>_link;
+  static set link (String? value) {
     if(value !=_mainGameNAme){
-      _mainGameWebLink = value;
+      _link = value;
       streamAppBar.add(true);
     }
   }
@@ -31,13 +33,14 @@ class Routes {
   static String get routeName => switch (routeType){
     RouteType.empty => ' ',
     RouteType.home => HOME_PAGE,
+    RouteType.game => GAME,
     RouteType.gameHelp => HELP,
     RouteType.gameMain => _mainGameNAme,
     RouteType.testKhande => TESTLABKHAND,
     RouteType.coinWeb => COIN,
   };
 
-  static String get _mainGameNAme => switch (Routes.mainGameWebLink){
+  static String get _mainGameNAme => switch (Routes.link){
     '25' => NABARD_KHANDE,
     '45' => RANG_RAZE,
     '68' => AFSON_VAJEH,
@@ -47,12 +50,13 @@ class Routes {
 
   static Widget change(ChengStateWeb model) {
     routeType = model.type;
-    mainGameWebLink = model.mainGameWebLink;
+    link = model.link;
     return switch (routeType){
       RouteType.empty => Container(width: 0,height: 0,),
       RouteType.home => HomeWeb(),
-      RouteType.gameMain => MainGameWeb(link:mainGameWebLink!,),
-      RouteType.gameHelp => HelpWeb(link:mainGameWebLink!,),
+      RouteType.game => GameWeb(link:link!,),
+      RouteType.gameMain => MainGameWeb(link:link!,),
+      RouteType.gameHelp => HelpWeb(link:link!,),
       RouteType.testKhande => TestKhandePage(),
       RouteType.coinWeb => CoinWeb(),
     };

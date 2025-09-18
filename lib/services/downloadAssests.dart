@@ -112,12 +112,12 @@ class DownloadAssests {
 
   Future _downloadHtml(dynamic item, String fullPath) async {
 
-    Future<List<int>> processCssImages(dynamic cssData) async {
-
-      var  cssContent =  utf8.decode(cssData);
-      cssContent = cssContent.replaceAll("url('", "url('file://${AppStrings.downloadPath}");
-      return  utf8.encode(cssContent);
-    }
+    // Future<List<int>> processCssImages(dynamic cssData) async {
+    //
+    //   var  cssContent =  utf8.decode(cssData);
+    //   cssContent = cssContent.replaceAll("url('", "url('file://${AppStrings.downloadPath}");
+    //   return  utf8.encode(cssContent);
+    // }
 
     try {
       final file = File(fullPath);
@@ -134,7 +134,7 @@ class DownloadAssests {
             try{
               final res = await _dio.get("${item['baseUrl']}/$link",options: Options(responseType: ResponseType.bytes));
               if(tag == 'link') {
-                res.data = await processCssImages(res.data);
+                // res.data = await processCssImages(res.data);
               }
               final base64 = base64Encode(res.data);
               final dataUri = "data:$mimeType;base64,$base64";
@@ -142,8 +142,8 @@ class DownloadAssests {
             }
             catch(e){}
           }
-          else{
-            node.attributes[attr] ='.${node.attributes[attr]}';
+          else if (link != null){
+            node.attributes[attr] ='.${link}';
           }
         }
       }
@@ -151,7 +151,17 @@ class DownloadAssests {
       await inlineTag("link", "href", "text/css");
       await inlineTag("script", "src", "application/javascript");
       await inlineTag("img", "src", "image/jpeg");
-      final finalHtml = document.outerHtml;
+      var finalHtml = document.outerHtml;
+
+      finalHtml = finalHtml.replaceAll("publicToken = '';", "publicToken = '${AppStrings.auth}';");
+      finalHtml = finalHtml.replaceAll("publicDeviceId = '';", "publicDeviceId = '${AppStrings.deviceId}';");
+      String url =AppStrings.apiHost;
+      if (url.endsWith('/')) {
+        url = url.substring(0, url.length - 1);
+      }
+      finalHtml = finalHtml.replaceAll("publicHubBaseUrl = '';", "publicHubBaseUrl = '${url}';");
+      finalHtml = finalHtml.replaceAll("publicApiBaseUrl = '';", "publicApiBaseUrl = '${url}';");
+
       final file2 = File('$fullPath.html');
       await file2.writeAsString(finalHtml);
 

@@ -20,7 +20,7 @@ class AppNavigationBar extends StatelessWidget implements PreferredSizeWidget{
             text: PROFILE,
             icon: Iconsax.user,
             color: BaseColor,
-            onPress: ()=>streamRoutes.add(ChengStateWeb(RouteType.gameMain, mainGameWebLink : '89'))
+            onPress: ()=>streamRoutes.add(ChengStateWeb(RouteType.gameMain, link : '89'))
         ),
         CircleBtn(
             text: '0 \$',
@@ -33,13 +33,13 @@ class AppNavigationBar extends StatelessWidget implements PreferredSizeWidget{
             text: HISTORY,
             icon: Iconsax.calendar_tick,
             color: BaseColor,
-            onPress: ()=>streamRoutes.add(ChengStateWeb(RouteType.gameMain, mainGameWebLink : '25'))
+            onPress: ()=>streamRoutes.add(ChengStateWeb(RouteType.gameMain, link : '25'))
         ),
         CircleBtn(
             text:GROUP,
             icon: Iconsax.people,
             color: BaseColor,
-            onPress: ()=>streamRoutes.add(ChengStateWeb(RouteType.gameMain, mainGameWebLink : '45'))
+            onPress: ()=>streamRoutes.add(ChengStateWeb(RouteType.gameMain, link : '45'))
         )
       ];
   }

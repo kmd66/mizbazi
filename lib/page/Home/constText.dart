@@ -5,6 +5,7 @@ const String GROUP = "گروه";
 const String HOME_PAGE = "صفحه اصلی";
 const String COIN = "سکه";
 const String HELP = "راهنما";
+const String GAME = "بازی";
 const String EXIT = "خزوج";
 
 const String RANG_RAZE = "رنگ و راز";
