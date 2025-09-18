@@ -68,6 +68,12 @@ class _state extends State<BaseWeb>{
         }
       },
 
+      onPermissionRequest: (controller, request) async {
+        return PermissionResponse(
+          resources: request.resources,
+          action: PermissionResponseAction.GRANT,
+        );
+      },
       onConsoleMessage: (controller, consoleMessage) {
       },
 
@@ -104,20 +110,37 @@ class _state extends State<BaseWeb>{
   InAppWebViewSettings _WebSettings() {
     return InAppWebViewSettings(
       cacheEnabled: false, // فعال‌سازی کش
-      // cacheMode: CacheMode.LOAD_CACHE_ELSE_NETWORK,
-      mediaPlaybackRequiresUserGesture: false,
-      // فعال کردن JavaScript
       javaScriptEnabled: true,
-      // اجازه پخش رسانه درون‌خطی (برای iOS)
-      allowsInlineMediaPlayback: true,
       // تنظیمات مربوط به دسترسی به دوربین و میکروفون
       iframeAllow: "camera; microphone",
-
       // تنظیمات مربوط به رابط کاربری
       transparentBackground: true,
       disableContextMenu: false,
       // تنظیمات مربوط به امنیت
-      // safeBrowsingEnabled: true,
+      safeBrowsingEnabled: true,
+
+
+      // تنظیمات ضروری برای WebRTC
+      mediaPlaybackRequiresUserGesture: false,
+      allowFileAccess: true,
+      domStorageEnabled: true,
+      allowContentAccess: true,
+      allowUniversalAccessFromFileURLs: true,
+      allowFileAccessFromFileURLs: true,
+      databaseEnabled: true,
+      javaScriptCanOpenWindowsAutomatically: true,
+
+      // تنظیمات خاص برای دسترسی به رسانه
+      useWideViewPort: true,
+      loadWithOverviewMode: true,
+
+      // برای iOS
+      allowsInlineMediaPlayback: true,
+      allowsAirPlayForMediaPlayback: true,
+      allowsPictureInPictureMediaPlayback: true,
+
+      // برای Android
+      supportMultipleWindows: true,
 
     );
   }
