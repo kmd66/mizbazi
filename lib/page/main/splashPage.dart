@@ -83,7 +83,6 @@ class _State extends State<splashPage> {
   Widget build(BuildContext context) {
     return
       Stack(children: [
-
         Align(
           alignment: Alignment.topCenter,
           child: Padding(

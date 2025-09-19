@@ -34,7 +34,6 @@ class _state extends State<AppBody> {
     }
     streamRoutes = StreamController<ChengStateWeb>();
     streamRoutes.stream.listen((value) async{
-
       if(Routes.routeType != value.type){
         setState(()=>_obj = Routes.change(ChengStateWeb(RouteType.empty)));
         await Future.delayed(Duration(milliseconds: 200));

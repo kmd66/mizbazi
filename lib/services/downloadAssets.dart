@@ -12,36 +12,28 @@ import 'dart:convert';
 const String urlDownloadList = "api/app/DownloadList";
 const String urlUpdateList = "api/app/UpdateList";
 
-class DownloadAssests {
+class DownloadAssets {
   var _http = AppHttp();
   final _dio = Dio();
 
   Future CheckUpdate() async{
     SharedPreferences local = await SharedPreferences.getInstance();
 
-    if(local.containsKey('appVersion')){
-      await local.remove("appVersion");
-    }
-
     dynamic list;
     dynamic listData = [];
 
-    if(!local.containsKey('appVersion')){
-      list = await _getDownloadList();
-      if(list == false) {
-        return;
-      }
+    list = await _getDownloadList();
+    if(list == false || list.length == 0) {
+      return;
     }
-    else{
-      list = await _getUpdateList();
-      if(list == false || list.length == 0) {
-        return;
-      }
+
+    if(local.containsKey('appVersion')){
       var listJson = await local.getString('appVersion');
       listData = jsonDecode(listJson!);
     }
 
     await _chekDownload(list, listData);
+
     if(local.containsKey('appVersion')){
       await local.remove("appVersion");
     }
@@ -217,6 +209,4 @@ class DownloadAssests {
       return folderPath;
     }
   }
-
-
 }
