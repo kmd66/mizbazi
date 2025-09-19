@@ -45,19 +45,19 @@ class _State extends State<HomeWeb> {
           },
           onLoadStop:() async{
             var script = """
-                function saveTokenToLocalStorage(deviceId, token) {
-                    if (localStorage.getItem("publicDeviceId") != null) {
-                        localStorage.removeItem("publicDeviceId");
-                    }
-                    if (localStorage.getItem("publicToken") != null) {
-                        localStorage.removeItem("publicToken");
-                    }
-                    localStorage.setItem("publicDeviceId", deviceId);
-                    localStorage.setItem("publicToken", token);
-                    publicDeviceId = deviceId;
-                    publicToken = token;
-                }
-                saveTokenToLocalStorage('${AppStrings.deviceId}', '${AppStrings.auth}');
+                // function saveTokenToLocalStorage(deviceId, token) {
+                //     if (localStorage.getItem("publicDeviceId") != null) {
+                //         localStorage.removeItem("publicDeviceId");
+                //     }
+                //     if (localStorage.getItem("publicToken") != null) {
+                //         localStorage.removeItem("publicToken");
+                //     }
+                //     localStorage.setItem("publicDeviceId", deviceId);
+                //     localStorage.setItem("publicToken", token);
+                //     publicDeviceId = deviceId;
+                //     publicToken = token;
+                // }
+                // saveTokenToLocalStorage('${AppStrings.deviceId}', '${AppStrings.auth}');
 """;
             await _webViewController.evaluateJavascript(source: script);
 
@@ -96,6 +96,7 @@ class _State extends State<HomeWeb> {
 
 
   Future<bool> requestCameraAndMicPermissions() async {
+    if(isPermission) return true;
     var cameraStatus = await Permission.camera.status;
     var micStatus = await Permission.microphone.status;
 
@@ -107,7 +108,6 @@ class _State extends State<HomeWeb> {
       micStatus = await Permission.microphone.request();
     }
 
-    print('---------isPermission--------- ${cameraStatus.isGranted}- ${micStatus.isGranted}');
     if (cameraStatus.isGranted && micStatus.isGranted) {
       isPermission = true;
       return true;

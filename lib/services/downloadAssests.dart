@@ -96,7 +96,9 @@ class DownloadAssests {
   Future _download(dynamic item, String fullPath) async {
     try {
       String url = item['downloadUrl'];
-      print('----------------url--------------------- $url');
+      if(url.contains('localhost:')){
+        url = url.replaceAll('localhost:', '10.0.3.2:');
+      }
       await _dio.download(
         url,
         fullPath,
@@ -130,7 +132,6 @@ class DownloadAssests {
           final link = node.attributes[attr];
           final cache = node.attributes['cache'];
           if((cache == 'inPage' || tag == 'img') && link != null && !link.startsWith('http')){
-            print('----------------tag--------------------- ${item['baseUrl']}$link');
             try{
               final res = await _dio.get("${item['baseUrl']}/$link",options: Options(responseType: ResponseType.bytes));
               if(tag == 'link') {

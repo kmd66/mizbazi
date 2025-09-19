@@ -13,9 +13,7 @@ class LocalServer  {
 
   /// راه‌اندازی سرور با مسیر فایل‌ها و پورت مشخص
   Future<void> start({required String folderPath, int port = 8080}) async {
-    print("sssss ${_server?.address}");
     if (_server != null) {
-      print("Server is already running at http://${_server!.address.host}:${_server!.port}");
       return;
     }
 
@@ -27,7 +25,6 @@ class LocalServer  {
 
     // bind به 0.0.0.0 تا از Genymotion و شبیه‌سازهای دیگه قابل دسترسی باشه
     _server = await io.serve(handler, '0.0.0.0', port);
-    print('Local server running at http://${_server!.address.host}:${_server!.port}');
   }
 
   /// توقف سرور
@@ -35,7 +32,6 @@ class LocalServer  {
     if (_server != null) {
       await _server!.close(force: true);
       _server = null;
-      print("Local server stopped");
     }
   }
 
