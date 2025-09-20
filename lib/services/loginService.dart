@@ -28,10 +28,6 @@ class LoginService {
       SharedPreferences local = await SharedPreferences.getInstance();
       await local.setString("auth",value);
 
-      if(local.containsKey('appVersion')){
-        await local.remove("appVersion");
-      }
-
       chengStateMain.add(ChengState(StateType.splash));
     }).catchError((e) {
       streamMessage.add(Message.danger(msg:e['message'], respite: 5));

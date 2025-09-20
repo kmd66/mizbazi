@@ -4,8 +4,10 @@ import 'package:iconsax/iconsax.dart';
 import '../../../Widgets/btns.dart';
 import '../../../core/appColor.dart';
 import '../../../core/event.dart';
+import '../../../services/downloadAssets.dart';
 import '../constText.dart';
 import '../routes.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeNavigationBar extends StatelessWidget{
 
@@ -37,8 +39,20 @@ class HomeNavigationBar extends StatelessWidget{
           child: CircleBtn(
               text: EXIT,
               icon: Iconsax.logout,
-            onPress: ()=>exit(0)
+            //onPress: ()=>update()
+             onPress: ()=>exit(0)
           )
       );
+  }
+  update() async{
+    SharedPreferences local = await SharedPreferences.getInstance();
+    if(local.containsKey('appVersion')){
+      await local.remove("appVersion");
+    }
+    print('----------------DownloadAssets start---------------------');
+    var t = DownloadAssets();
+    await t.CheckUpdate();
+    print('----------------DownloadAssets end---------------------');
+
   }
 }

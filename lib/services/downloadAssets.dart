@@ -87,10 +87,7 @@ class DownloadAssets {
 
   Future _download(dynamic item, String fullPath) async {
     try {
-      String url = item['downloadUrl'];
-      if(url.contains('localhost:')){
-        url = url.replaceAll('localhost:', '10.0.3.2:');
-      }
+      String url = _url(item['downloadUrl']);
       await _dio.download(
         url,
         fullPath,
@@ -125,18 +122,21 @@ class DownloadAssets {
           final cache = node.attributes['cache'];
           if((cache == 'inPage' || tag == 'img') && link != null && !link.startsWith('http')){
             try{
-              final res = await _dio.get("${item['baseUrl']}/$link",options: Options(responseType: ResponseType.bytes));
-              if(tag == 'link') {
-                // res.data = await processCssImages(res.data);
-              }
+              String baseUrl = _url(item['baseUrl']);
+              final res = await _dio.get("$baseUrl/$link",options: Options(responseType: ResponseType.bytes));
+              // if(tag == 'link') {
+              //   res.data = await processCssImages(res.data);
+              // }
               final base64 = base64Encode(res.data);
               final dataUri = "data:$mimeType;base64,$base64";
               node.attributes[attr] = dataUri;
             }
-            catch(e){}
+            catch(e){
+              print('------------e $e');
+            }
           }
           else if (link != null){
-            node.attributes[attr] ='.${link}';
+            node.attributes[attr] ='.$link';
           }
         }
       }
@@ -145,15 +145,6 @@ class DownloadAssets {
       await inlineTag("script", "src", "application/javascript");
       await inlineTag("img", "src", "image/jpeg");
       var finalHtml = document.outerHtml;
-
-      finalHtml = finalHtml.replaceAll("publicToken = '';", "publicToken = '${AppStrings.auth}';");
-      finalHtml = finalHtml.replaceAll("publicDeviceId = '';", "publicDeviceId = '${AppStrings.deviceId}';");
-      String url =AppStrings.apiHost;
-      if (url.endsWith('/')) {
-        url = url.substring(0, url.length - 1);
-      }
-      finalHtml = finalHtml.replaceAll("publicHubBaseUrl = '';", "publicHubBaseUrl = '${url}';");
-      finalHtml = finalHtml.replaceAll("publicApiBaseUrl = '';", "publicApiBaseUrl = '${url}';");
 
       final file2 = File('$fullPath.html');
       await file2.writeAsString(finalHtml);
@@ -208,5 +199,15 @@ class DownloadAssets {
       await directory.create(recursive: true);
       return folderPath;
     }
+  }
+
+  String _url(dynamic url){
+
+    if(url == null || url == '') return '';
+    String _url = url;
+    if(_url.contains('localhost:')){
+      _url = _url.replaceAll('localhost:', '10.0.3.2:');
+    }
+    return _url;
   }
 }

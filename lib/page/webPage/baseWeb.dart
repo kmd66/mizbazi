@@ -3,9 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 
 class BaseWeb extends StatefulWidget {
-  BaseWeb({required this.url, this.onWebViewCreated, this.onLoadStop});
+  BaseWeb({required this.url, this.onWebViewCreated, this.onLoadStop, this.script});
   final String url;
   final Function(InAppWebViewController)? onWebViewCreated;
+  final String? script;
   final Function()? onLoadStop;
 
   @override
@@ -90,8 +91,13 @@ class _state extends State<BaseWeb>{
       onLoadStop: (controller, url) {
         setState(() {
           isLoading = false;
-          if(!hasError && widget.onLoadStop != null){
-            widget.onLoadStop!();
+          if(!hasError){
+            if(widget.script != null){
+              controller.evaluateJavascript(source: widget.script!);
+            }
+            if(widget.onLoadStop != null){
+              widget.onLoadStop!();
+            }
           }
         });
       },
@@ -107,6 +113,7 @@ class _state extends State<BaseWeb>{
       },
     );
   }
+
   InAppWebViewSettings _WebSettings() {
     return InAppWebViewSettings(
       cacheEnabled: false, // فعال‌سازی کش

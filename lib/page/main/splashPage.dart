@@ -5,6 +5,8 @@ import '../../core/appSettings.dart';
 import '../../core/appText.dart';
 import '../../core/event.dart';
 import '../../services/UserService.dart';
+import '../../services/downloadAssets.dart';
+import '../../services/localServer.dart';
 import '../../services/pblService.dart';
 import 'constText.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -48,6 +50,10 @@ class _State extends State<splashPage> {
     checkHost();
   }
   Future<void> checkHost() async {
+
+    final server = LocalServer();
+    await server.start(folderPath: AppStrings.downloadPath!, port: 8014);
+
     await Future.delayed(const Duration(seconds: 2));
     var service = PblService();
     var model = await service.checkHost();
@@ -70,6 +76,12 @@ class _State extends State<splashPage> {
       chengStateMain.add(ChengState(StateType.login));
       return;
     }
+
+    print('----------------DownloadAssets start---------------------');
+    var t = DownloadAssets();
+    await t.CheckUpdate();
+    print('----------------DownloadAssets end---------------------');
+
     AppStrings.auth = await local.getString('auth');
     await userService.Get();
   }

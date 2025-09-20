@@ -4,6 +4,7 @@ import 'package:miz_bazi/page/webPage/baseWeb.dart';
 import 'package:miz_bazi/core/event.dart';
 import 'package:permission_handler/permission_handler.dart';
 import '../../../core/appSettings.dart';
+import '../../core/webPropertis.dart';
 import '../Home/routes.dart';
 import '../Home/state/homeNavigationBar.dart';
 
@@ -18,7 +19,7 @@ class _State extends State<HomeWeb> {
 
   bool isExitBtn = true;
   bool isPermission = false;
-  String get _urlHome => AppStrings.apiHost + 'pages/Home';
+  String get _urlHome => '${AppStrings.localHost}Home.html';
 
   @override
   void initState() {
@@ -38,29 +39,11 @@ class _State extends State<HomeWeb> {
     return Stack(children: [
       BaseWeb(
           url: _urlHome,
+          script:WebPropertis.apiProperty,
           onWebViewCreated:(c)
           {
             _webViewController = c;
             javaScriptHandler();
-          },
-          onLoadStop:() async{
-            var script = """
-                // function saveTokenToLocalStorage(deviceId, token) {
-                //     if (localStorage.getItem("publicDeviceId") != null) {
-                //         localStorage.removeItem("publicDeviceId");
-                //     }
-                //     if (localStorage.getItem("publicToken") != null) {
-                //         localStorage.removeItem("publicToken");
-                //     }
-                //     localStorage.setItem("publicDeviceId", deviceId);
-                //     localStorage.setItem("publicToken", token);
-                //     publicDeviceId = deviceId;
-                //     publicToken = token;
-                // }
-                // saveTokenToLocalStorage('${AppStrings.deviceId}', '${AppStrings.auth}');
-""";
-            await _webViewController.evaluateJavascript(source: script);
-
           }
       ),
       HomeNavigationBar()

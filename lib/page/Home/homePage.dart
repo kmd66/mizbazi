@@ -7,14 +7,9 @@ import 'package:miz_bazi/page/Home/state/navigationBar.dart';
 import '../../Widgets/Load.dart';
 import '../../Widgets/Msg.dart';
 import '../../core/appColor.dart';
-import '../../core/appText.dart';
 import '../../core/event.dart';
-import '../../services/downloadAssets.dart';
-import '../main/constText.dart';
 
 class HomePage extends StatefulWidget {
-
-  static bool updateCheck = false;
   @override
   State<HomePage> createState() => _State();
 }
@@ -58,17 +53,6 @@ class _State extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    if(!HomePage.updateCheck){
-      update();
-      return Center(child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          AppText(LOAD,fontSize:28),
-        ],
-      ));
-    }
-
     return Stack(
       children: [
         Container(
@@ -87,15 +71,4 @@ class _State extends State<HomePage> {
       ],
     );
   }
-
-  update() async{
-    print('----------------DownloadAssets start---------------------');
-    var t = DownloadAssets();
-    await t.CheckUpdate();
-    setState(() {
-      HomePage.updateCheck = true;
-    });
-    print('----------------DownloadAssets end---------------------');
-  }
-
 }

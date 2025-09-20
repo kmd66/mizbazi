@@ -3,6 +3,7 @@ import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:miz_bazi/page/webPage/baseWeb.dart';
 import 'package:miz_bazi/core/event.dart';
 import '../../core/appSettings.dart';
+import '../../core/webPropertis.dart';
 import '../Home/routes.dart';
 
 class MainGameWeb extends StatefulWidget {
@@ -35,6 +36,7 @@ class _State extends State<MainGameWeb> {
     return Stack(children: [
       BaseWeb(
           url: _url,
+          script: WebPropertis.apiProperty,
           onWebViewCreated:(c)=>javaScriptHandler(c)
       ),
     ]);
