@@ -50,14 +50,14 @@ class DownloadAssets {
     });
   }
 
-  Future<dynamic> _getUpdateList() async{
-    return  await _http.post(AppStrings.apiHost + urlUpdateList, {}).then((value) async{
-      return value;
-    }).catchError((e) {
-      streamMessage.add(Message.danger(msg:e['message'], respite: 5));
-      return false;
-    });
-  }
+  // Future<dynamic> _getUpdateList() async{
+  //   return  await _http.post(AppStrings.apiHost + urlUpdateList, {}).then((value) async{
+  //     return value;
+  //   }).catchError((e) {
+  //     streamMessage.add(Message.danger(msg:e['message'], respite: 5));
+  //     return false;
+  //   });
+  // }
 
   Future _chekDownload(dynamic list, dynamic localList) async {
     final local = localList as List;

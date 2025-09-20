@@ -5,7 +5,6 @@ import '../core/appHttp.dart';
 import '../core/event.dart';
 import '../model/ApiModel.dart';
 import '../model/Message.dart';
-import 'downloadAssets.dart';
 
 const String urlGetUser = "api/v1/Login/GetUser";
 const String urlGetToken = "api/v1/Login/GetToken";
