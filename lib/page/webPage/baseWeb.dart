@@ -1,12 +1,14 @@
+import 'dart:collection';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 
 class BaseWeb extends StatefulWidget {
-  BaseWeb({required this.url, this.onWebViewCreated, this.onLoadStop, this.script});
+  BaseWeb({required this.url, this.onWebViewCreated, this.onLoadStop, required this.script});
   final String url;
   final Function(InAppWebViewController)? onWebViewCreated;
-  final String? script;
+  final String script;
   final Function()? onLoadStop;
 
   @override
@@ -92,15 +94,20 @@ class _state extends State<BaseWeb>{
         setState(() {
           isLoading = false;
           if(!hasError){
-            if(widget.script != null){
-              controller.evaluateJavascript(source: widget.script!);
-            }
             if(widget.onLoadStop != null){
               widget.onLoadStop!();
             }
           }
         });
       },
+      initialUserScripts: UnmodifiableListView<UserScript>([
+        UserScript(
+          source: widget.script,
+          forMainFrameOnly: true,
+          injectionTime: UserScriptInjectionTime.AT_DOCUMENT_START,
+        ),
+      ]),
+
       onReceivedHttpError: (controller, request, errorResponse) {
         if (errorResponse.statusCode != null && errorResponse.statusCode! > 400 ) {
           // setState(() {

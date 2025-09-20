@@ -34,7 +34,7 @@ class _State extends State<GameWeb> {
     return Stack(children: [
       BaseWeb(
           url: _url,
-          onWebViewCreated:(c)=>javaScriptHandler(c)
+          onWebViewCreated:(c)=>javaScriptHandler(c), script: '',
       ),
     ]);
   }
