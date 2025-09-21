@@ -19,7 +19,7 @@ class AppStrings {
 
   static String apiHost = 'https://10.0.3.2:7230/';
 
-  static String localHost = 'http://localhost:8014/';
+  static String localHost = 'https://localhost:8014';
 
   static late CheckHost webWersion;
 

@@ -19,7 +19,7 @@ class _State extends State<HomeWeb> {
 
   bool isExitBtn = true;
   bool isPermission = false;
-  String get _urlHome => '${AppStrings.localHost}Home.html';
+  String get _urlHome => '${AppStrings.localHost}/Home.html';
 
   @override
   void initState() {

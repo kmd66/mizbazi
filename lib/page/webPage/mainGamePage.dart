@@ -18,7 +18,7 @@ class _State extends State<MainGameWeb> {
 
   late InAppWebViewController _webViewController;
 
-  String get _url => '${AppStrings.localHost}Main${widget.link}.html';
+  String get _url => '${AppStrings.localHost}/Main${widget.link}.html';
 
   @override
   void initState() {
@@ -54,10 +54,7 @@ class _State extends State<MainGameWeb> {
         handlerName: "f_initGameReceive",
         callback: (args) {
           var link = args[0].toString();
-
-          if(link.contains('localhost:')){
-            link = link.replaceAll('localhost:', '10.0.3.2:');
-          }
+          print('_url$link');
           streamRoutes.add(ChengStateWeb(RouteType.game, link : link));
         });
 

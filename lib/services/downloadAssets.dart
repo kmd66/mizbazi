@@ -4,6 +4,7 @@ import 'package:miz_bazi/core/appSettings.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../core/appHttp.dart';
 import '../core/event.dart';
+import '../core/webPropertis.dart';
 import '../model/Message.dart';
 import 'dart:io';
 import 'package:path/path.dart' as path;
@@ -87,7 +88,7 @@ class DownloadAssets {
 
   Future _download(dynamic item, String fullPath) async {
     try {
-      String url = _url(item['downloadUrl']);
+      String url = WebPropertis.url(item['downloadUrl']);
       await _dio.download(
         url,
         fullPath,
@@ -103,12 +104,11 @@ class DownloadAssets {
 
   Future _downloadHtml(dynamic item, String fullPath) async {
 
-    // Future<List<int>> processCssImages(dynamic cssData) async {
-    //
-    //   var  cssContent =  utf8.decode(cssData);
-    //   cssContent = cssContent.replaceAll("url('", "url('file://${AppStrings.downloadPath}");
-    //   return  utf8.encode(cssContent);
-    // }
+    Future<List<int>> processCss(dynamic cssData) async {
+      var  cssContent =  utf8.decode(cssData);
+      cssContent = cssContent.replaceAll("url('", "url('${AppStrings.localHost}");
+      return  utf8.encode(cssContent);
+    }
 
     try {
       final file = File(fullPath);
@@ -122,11 +122,11 @@ class DownloadAssets {
           final cache = node.attributes['cache'];
           if((cache == 'inPage' || tag == 'img') && link != null && !link.startsWith('http')){
             try{
-              String baseUrl = _url(item['baseUrl']);
+              String baseUrl = WebPropertis.url(item['baseUrl']);
               final res = await _dio.get("$baseUrl/$link",options: Options(responseType: ResponseType.bytes));
-              // if(tag == 'link') {
-              //   res.data = await processCssImages(res.data);
-              // }
+              if(tag == 'link') {
+                res.data = await processCss(res.data);
+              }
               final base64 = base64Encode(res.data);
               final dataUri = "data:$mimeType;base64,$base64";
               node.attributes[attr] = dataUri;
@@ -199,15 +199,5 @@ class DownloadAssets {
       await directory.create(recursive: true);
       return folderPath;
     }
-  }
-
-  String _url(dynamic url){
-
-    if(url == null || url == '') return '';
-    String _url = url;
-    if(_url.contains('localhost:')){
-      _url = _url.replaceAll('localhost:', '10.0.3.2:');
-    }
-    return _url;
   }
 }
