@@ -3,6 +3,8 @@ import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:miz_bazi/core/event.dart';
 import '../../core/appSettings.dart';
 import '../../services/localServer.dart';
+import '../../core/webPropertis.dart';
+import 'package:miz_bazi/page/webPage/baseWeb.dart';
 
 class CoinWeb extends StatefulWidget {
 
@@ -12,6 +14,8 @@ class CoinWeb extends StatefulWidget {
 
 class _State extends State<CoinWeb> {
 
+  late InAppWebViewController _webViewController;
+  String get _url => '${AppStrings.localHost}/WheelFortune.html';
   String? decryptedHtml;
 
   @override
@@ -27,58 +31,23 @@ class _State extends State<CoinWeb> {
 
   @override
   void dispose() {
+    _webViewController?.dispose();
     super.dispose();
   }
 
-  @override
   Widget build(BuildContext context) {
-    return InAppWebView(
-      // key: ValueKey(DateTime.now().toString()), 127.0.0.1 یا localhost
-      initialUrlRequest: URLRequest(url: WebUri('http://127.0.0.1:8014/Main89.html')),
-      initialSettings:_WebSettings(),
-      onWebViewCreated: (controller) {
-      },
-      onConsoleMessage: (controller, consoleMessage) {
-      },
-
-      onReceivedServerTrustAuthRequest: (controller, challenge) async {
-        return ServerTrustAuthResponse(action: ServerTrustAuthResponseAction.PROCEED);
-      },
-
-      onLoadStart: (controller, url) {
-      },
-      onLoadStop: (controller, url) {
-      },
-      onReceivedHttpError: (controller, request, errorResponse) {
-      },
-      onReceivedError: (controller, request, error) {
-      },
-
-    );
+    return BaseWeb(
+          url: _url,
+          script:WebPropertis.apiProperty,
+          onWebViewCreated:(c)
+          {
+            _webViewController = c;
+            javaScriptHandler();
+          }
+      );
   }
 
-  InAppWebViewSettings _WebSettings() {
-    return InAppWebViewSettings(
-      cacheEnabled: false, // فعال‌سازی کش
-      // cacheMode: CacheMode.LOAD_CACHE_ELSE_NETWORK,
-      mediaPlaybackRequiresUserGesture: false,
-      // فعال کردن JavaScript
-      javaScriptEnabled: true,
-      // اجازه پخش رسانه درون‌خطی (برای iOS)
-      allowsInlineMediaPlayback: true,
-      // تنظیمات مربوط به دسترسی به دوربین و میکروفون
-      iframeAllow: "camera; microphone",
-
-      // تنظیمات مربوط به رابط کاربری
-      transparentBackground: true,
-      disableContextMenu: false,
-      // تنظیمات مربوط به امنیت
-      // safeBrowsingEnabled: true,
-
-    );
-  }
-  void javaScriptHandler(InAppWebViewController c) {
-
+  void javaScriptHandler() {
   }
 
 }
