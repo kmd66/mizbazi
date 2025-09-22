@@ -3,6 +3,7 @@ import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:miz_bazi/core/webPropertis.dart';
 import 'package:miz_bazi/page/webPage/baseWeb.dart';
 import 'package:miz_bazi/core/event.dart';
+import '../../core/appSettings.dart';
 import '../Home/routes.dart';
 import 'dart:convert';
 
@@ -24,7 +25,7 @@ class _State extends State<GameWeb> {
   void initState() {
     streamMainBar.add(MainBarType.navBar);
     final Map obj = json.decode(widget.link);
-    _url = '${WebPropertis.url(obj['BaseUrl'])}/${obj['UserGameName']}?roomId=${obj['RoomId']}&userKey=${obj['Key']}&userId=${obj['Id']}';
+    _url = '${AppStrings.localHost}/${obj['UserGameName']}.html?roomId=${obj['RoomId']}&userKey=${obj['Key']}&userId=${obj['Id']}';
     super.initState();
   }
 

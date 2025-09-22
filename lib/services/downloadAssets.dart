@@ -142,8 +142,8 @@ class DownloadAssets {
       }
 
       await inlineTag("link", "href", "text/css");
-      await inlineTag("script", "src", "application/javascript");
-      await inlineTag("img", "src", "image/jpeg");
+      // await inlineTag("script", "src", "application/javascript");
+      // await inlineTag("img", "src", "image/jpeg");
       var finalHtml = document.outerHtml;
 
       final file2 = File('$fullPath.html');
