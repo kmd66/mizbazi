@@ -29,7 +29,7 @@ class _State extends State<OtherWeb> {
   @override
   void initState() {
     super.initState();
-    streamMainBar.add(MainBarType.navBar);
+    streamMainBar.add(MainBarType.empty);
   }
 
   @override

@@ -17,10 +17,10 @@ class AppNavigationBar extends StatelessWidget implements PreferredSizeWidget{
     return
       [
         CircleBtn(
-            text: PROFILE,
-            icon: Iconsax.user,
+            text: FRIEND,
+            icon: Iconsax.profile_2user,
             color: BaseColor,
-            onPress: ()=>streamRoutes.add(ChengStateWeb(RouteType.gameMain, link : '89'))
+            onPress: ()=>streamRoutes.add(ChengStateWeb(RouteType.friend))
         ),
         CircleBtn(
             text: '0 \$',
@@ -39,7 +39,7 @@ class AppNavigationBar extends StatelessWidget implements PreferredSizeWidget{
             text:GROUP,
             icon: Iconsax.people,
             color: BaseColor,
-            onPress: ()=>streamRoutes.add(ChengStateWeb(RouteType.gameMain, link : '45'))
+            onPress: ()=>streamRoutes.add(ChengStateWeb(RouteType.group))
         )
       ];
   }

@@ -55,7 +55,7 @@ class HomeNavigationBar extends StatelessWidget{
             Padding(padding: const EdgeInsets.symmetric(vertical: 14),child: CircleBtn(
               size: 45,
               color: BackgroundColor,
-              icon: Iconsax.heart,
+              icon: Iconsax.profile_2user,
               onPress: ()=>streamRoutes.add(ChengStateWeb(RouteType.friend)),
             )),
             Padding(padding: const EdgeInsets.symmetric(vertical: 14),child: CircleBtn(
@@ -68,7 +68,7 @@ class HomeNavigationBar extends StatelessWidget{
             Padding(padding: const EdgeInsets.symmetric(vertical: 14),child: CircleBtn(
               size: 45,
               color: BackgroundColor,
-              icon: Iconsax.bookmark,
+              icon: Iconsax.flag,
               onPress: ()=>streamRoutes.add(ChengStateWeb(RouteType.room)),
             )),
           ])

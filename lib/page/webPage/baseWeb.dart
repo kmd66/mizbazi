@@ -100,6 +100,7 @@ class _state extends State<BaseWeb>{
           }
         });
       },
+
       initialUserScripts: UnmodifiableListView<UserScript>([
         UserScript(
           source: widget.script,
