@@ -15,14 +15,29 @@ class HomeNavigationBar extends StatelessWidget{
   Widget build(BuildContext context) {
     return  Stack(children: [
       coinBtn(),
-      exitBtn()
+      exitBtn(),
+      otherBtn()
     ],);
   }
-  Widget coinBtn() {
+  Widget exitBtn() {
     return
       Positioned (
           bottom: 15,
           left: 15,
+          child: CircleBtn(
+              text: EXIT,
+              icon: Iconsax.logout,
+            onPress: ()=>update()
+            //onPress: ()=>exit(0)
+          )
+      );
+  }
+
+  Widget coinBtn() {
+    return
+      Positioned (
+          bottom: 15,
+          right: 15,
           child: CircleBtn(
             text: "0 \$",
             icon: Iconsax.bitcoin_refresh,
@@ -31,19 +46,35 @@ class HomeNavigationBar extends StatelessWidget{
           )
       );
   }
-  Widget exitBtn() {
+  Widget otherBtn() {
     return
       Positioned (
-          bottom: 100,
-          left: 15,
-          child: CircleBtn(
-              text: EXIT,
-              icon: Iconsax.logout,
-            //onPress: ()=>update()
-             onPress: ()=>exit(0)
-          )
+          top: 15,
+          right: 15,
+          child: Column(children: [
+            Padding(padding: const EdgeInsets.symmetric(vertical: 14),child: CircleBtn(
+              size: 45,
+              color: BackgroundColor,
+              icon: Iconsax.heart,
+              onPress: ()=>streamRoutes.add(ChengStateWeb(RouteType.friend)),
+            )),
+            Padding(padding: const EdgeInsets.symmetric(vertical: 14),child: CircleBtn(
+              size: 45,
+              icon: Iconsax.people,
+
+              color: BackgroundColor,
+              onPress: ()=>streamRoutes.add(ChengStateWeb(RouteType.group)),
+            )),
+            Padding(padding: const EdgeInsets.symmetric(vertical: 14),child: CircleBtn(
+              size: 45,
+              color: BackgroundColor,
+              icon: Iconsax.bookmark,
+              onPress: ()=>streamRoutes.add(ChengStateWeb(RouteType.room)),
+            )),
+          ])
       );
   }
+
   update() async{
     SharedPreferences local = await SharedPreferences.getInstance();
     if(local.containsKey('appVersion')){

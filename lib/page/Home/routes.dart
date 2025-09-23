@@ -7,6 +7,7 @@ import '../webPage/gamePage.dart';
 import '../webPage/helpWeb.dart';
 import '../webPage/homeWeb.dart';
 import '../webPage/mainGamePage.dart';
+import '../webPage/otherWeb.dart';
 import 'constText.dart';
 
 enum RouteType {
@@ -17,6 +18,10 @@ enum RouteType {
   gameHelp,
   testKhande,
   coinWeb,
+
+  friend,
+  group,
+  room
 }
 class Routes {
   static RouteType routeType = RouteType.empty;
@@ -38,6 +43,9 @@ class Routes {
     RouteType.gameMain => _mainGameNAme,
     RouteType.testKhande => TESTLABKHAND,
     RouteType.coinWeb => COIN,
+    RouteType.friend => FRIEND,
+    RouteType.group => GROUP,
+    RouteType.room => ROOM,
   };
 
   static String get _mainGameNAme => switch (Routes.link){
@@ -59,11 +67,11 @@ class Routes {
       RouteType.gameHelp => HelpWeb(link:link!,),
       RouteType.testKhande => TestKhandePage(),
       RouteType.coinWeb => CoinWeb(),
+
+      RouteType.friend || RouteType.group || RouteType.room => OtherWeb(),
     };
   }
-
 }
-
 
 enum DialogRouteType {
   empty,

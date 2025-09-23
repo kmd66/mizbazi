@@ -30,10 +30,11 @@ class AppBtn extends StatelessWidget {
   }
 }
 class CircleBtn extends StatelessWidget {
-  CircleBtn( {required this.onPress, this.color = BtnColor, required this.icon, this.text});
+  CircleBtn( {required this.onPress, this.color = BtnColor, required this.icon, this.text, this.size = 56});
   final IconData icon;
   final Color color;
   final String? text;
+  final double size;
   final Function() onPress;
 
   @override
@@ -46,7 +47,7 @@ class CircleBtn extends StatelessWidget {
         child: InkWell(
           splashColor: BtnShadowColor(opacity: 0.3), // Splash color
           onTap: ()=>onPress(),
-          child: SizedBox(width: 56, height: 56, child: AppIcon(icon)),
+          child: SizedBox(width: size, height: size, child: AppIcon(icon)),
         ),
       ),
     );

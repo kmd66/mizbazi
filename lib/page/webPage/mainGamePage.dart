@@ -15,19 +15,19 @@ class MainGameWeb extends StatefulWidget {
 }
 
 class _State extends State<MainGameWeb> {
-
-  late InAppWebViewController _webViewController;
+InAppWebViewController? _webViewController;
 
   String get _url => '${AppStrings.localHost}/Main${widget.link}.html';
 
   @override
   void initState() {
-    streamMainBar.add(MainBarType.navBar);
+    streamMainBar.add(MainBarType.empty);
     super.initState();
   }
 
   @override
   void dispose() {
+    _webViewController?.dispose();
     super.dispose();
   }
 
@@ -44,13 +44,13 @@ class _State extends State<MainGameWeb> {
 
   void javaScriptHandler(InAppWebViewController c) {
     _webViewController = c;
-    _webViewController.addJavaScriptHandler(
+    _webViewController?.addJavaScriptHandler(
         handlerName: "f_urlBack",
         callback: (args) {
           streamRoutes.add(ChengStateWeb(RouteType.home));
         });
 
-    _webViewController.addJavaScriptHandler(
+    _webViewController?.addJavaScriptHandler(
         handlerName: "f_initGameReceive",
         callback: (args) {
           var link = args[0].toString();
@@ -58,7 +58,7 @@ class _State extends State<MainGameWeb> {
           streamRoutes.add(ChengStateWeb(RouteType.game, link : link));
         });
 
-    _webViewController.addJavaScriptHandler(
+    _webViewController?.addJavaScriptHandler(
         handlerName: "f_restartGameReceive",
         callback: (args) {
         });

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:miz_bazi/core/event.dart';
 import '../../core/appSettings.dart';
-import '../../services/localServer.dart';
 import '../../core/webPropertis.dart';
 import 'package:miz_bazi/page/webPage/baseWeb.dart';
 
@@ -14,19 +13,13 @@ class CoinWeb extends StatefulWidget {
 
 class _State extends State<CoinWeb> {
 
-  late InAppWebViewController _webViewController;
+  InAppWebViewController? _webViewController;
   String get _url => '${AppStrings.localHost}/WheelFortune.html';
-  String? decryptedHtml;
 
   @override
   void initState() {
     super.initState();
     streamMainBar.add(MainBarType.all);
-    loadHtml();
-  }
-  Future loadHtml() async{
-    final server = LocalServer();
-    await server.start(folderPath: AppStrings.downloadPath!, port: 8014);
   }
 
   @override

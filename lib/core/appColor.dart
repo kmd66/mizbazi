@@ -5,6 +5,7 @@ const Color BackgroundColor = Color.fromRGBO(20, 30, 48, 1.0);
 const Color BaseColor = Color.fromRGBO(0, 71, 91, 1.0);
 const Color TextColor = Color.fromRGBO(200, 200, 200, 1.0);
 const Color TextColor2 = Color.fromRGBO(207, 216, 236, 0.6);
+const Color TextColor3 = Color.fromRGBO(134, 163 ,235, 1.0);
 const Color LinkColor = Color.fromRGBO(3, 218, 198, 1);
 const Color BtnColor = Color.fromRGBO(66, 72, 101, 1.0);
 Color BtnShadowColor ({double opacity = 0.3})=> Color.fromRGBO(207, 216, 236, opacity);
