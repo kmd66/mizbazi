@@ -23,7 +23,7 @@ class _State extends State<GameWeb> {
 
   @override
   void initState() {
-    streamMainBar.add(MainBarType.navBar);
+    streamMainBar.add(MainBarType.empty);
     final Map obj = json.decode(widget.link);
     _url = '${AppStrings.localHost}/${obj['UserGameName']}.html?roomId=${obj['RoomId']}&userKey=${obj['Key']}&userId=${obj['Id']}';
     super.initState();

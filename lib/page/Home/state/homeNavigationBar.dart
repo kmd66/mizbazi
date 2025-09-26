@@ -27,8 +27,8 @@ class HomeNavigationBar extends StatelessWidget{
           child: CircleBtn(
               text: EXIT,
               icon: Iconsax.logout,
-            onPress: ()=>update()
-            //onPress: ()=>exit(0)
+            //onPress: ()=>update()
+            onPress: ()=>exit(0)
           )
       );
   }
